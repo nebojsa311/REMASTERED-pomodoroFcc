@@ -4,8 +4,10 @@ import BreakLabel from "./Break.js";
 import SessionLabel from "./Session.js";
 import TimerLabel from "./Timer.js";
 
+let counterGo = null;
+
 class App extends React.Component {
-  constructor(props) {
+  constructor(props){ 
     super(props);
     //states
     this.state = {
@@ -15,7 +17,8 @@ class App extends React.Component {
       session_holder: 0,
       seconds: 0,
       break: false,
-      running: false,
+      running: true,
+      label: 'Session'
     };
     // Methods binding .this
     this.incrementMethod = this.incrementMethod.bind(this);
@@ -54,51 +57,53 @@ class App extends React.Component {
   }
 
   runningMethod(event) {
-    let myVar = setInterval(() => {
-      // session in process
-      if (this.state.break === false) {
-        if (this.state.session_length > 0) {
-          if (this.state.seconds === 0) {
-            this.setState({
-              session_length: this.state.session_length - 1,
-              seconds: 59,
-              session_holder: this.state.session_holder + 1,
-            });
-          } else if (this.state.seconds > 0) {
-            this.setState({ seconds: this.state.seconds - 1 });
-          }
-        } else if (this.state.session_length === 0 && this.state.seconds > 0) {
-          this.setState({ seconds: this.state.seconds - 1 });
-        } else {
+    // session in process
+      if (this.state.break === false && this.state.running === false) {
+      if (this.state.session_length > 0) {
+        if (this.state.seconds === 0) {
           this.setState({
-            break: true,
-            session_length: this.state.session_holder,
-            break_holder: 0,
+            session_length: this.state.session_length - 1,
+            seconds: 59,
+            session_holder: this.state.session_holder + 1,
           });
-        }
-        // break in process
-      } else if (this.state.break === true) {
-        if (this.state.break_length > 0) {
-          if (this.state.seconds === 0) {
-            this.setState({
-              break_length: this.state.break_length - 1,
-              seconds: 59,
-              break_holder: this.state.break_holder + 1,
-            });
-          } else if (this.state.seconds > 0) {
-            this.setState({ seconds: this.state.seconds - 1 });
-          }
-        } else if (this.state.break_length === 0 && this.state.seconds > 0) {
+        } else if (this.state.seconds > 0) {
           this.setState({ seconds: this.state.seconds - 1 });
-        } else {
-          this.setState({
-            break: false,
-            break_length: this.state.break_holder,
-            session_holder: 0,
-          });
         }
+      } else if (this.state.session_length === 0 && this.state.seconds > 0) {
+        this.setState({ seconds: this.state.seconds - 1 });
+      } else {
+        this.setState({
+          break: true,
+          session_length: this.state.session_holder,
+          break_holder: 0,
+          label: 'Break',
+        });
       }
-    }, 1000);
+      // break in process
+    } else if (this.state.break === true && this.state.running === false) {
+      this.setState({ label: 'Break time' })
+      if (this.state.break_length > 0) {
+        if (this.state.seconds === 0) {
+          this.setState({
+            break_length: this.state.break_length - 1,
+            seconds: 59,
+            break_holder: this.state.break_holder + 1,
+          });
+        } else if (this.state.seconds > 0) {
+          this.setState({ seconds: this.state.seconds - 1 });
+        }
+      } else if (this.state.break_length === 0 && this.state.seconds > 0) {
+        this.setState({ seconds: this.state.seconds - 1 });
+      } else {
+        this.setState({
+          break: false,
+          break_length: this.state.break_holder,
+          session_holder: 0,
+          label: 'Session time',
+        });
+      }
+    }
+  
   }
 
   resetMethod(event) {
@@ -107,7 +112,28 @@ class App extends React.Component {
       session_length: 25,
       seconds: 0,
       break: false,
+      running: true,
+      label: 'Session'
     });
+    clearInterval(counterGo);
+  }
+
+  componentDidMount() {
+    document
+      .getElementById("start_stop")
+      .addEventListener("click", () => {
+        if(this.state.running === true) {
+          counterGo = setInterval(this.runningMethod, 1000);
+          this.setState({ running: false });
+          return;
+        } else if(this.state.running === false){
+          clearInterval(counterGo);
+          this.setState({ running: true });
+          return;
+        }
+      }
+        
+      );
   }
 
   render() {
@@ -129,7 +155,7 @@ class App extends React.Component {
           seconds={this.state.seconds}
           switcher={this.state.break}
           reset={this.resetMethod}
-          run={this.runningMethod}
+          label={this.state.label}
         />
       </div>
     );

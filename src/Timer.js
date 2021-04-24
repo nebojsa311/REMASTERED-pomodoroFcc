@@ -5,7 +5,7 @@ import ResetButton from "./ResetButton";
 function TimerLabel(props) {
   return (
     <div className="timer-control">
-      <div id="timer-label">Session</div>
+      <div id="timer-label">{props.label}</div>
       <div id="time-left">
         {props.switcher === false && props.time < 10
           ? "0" + props.time
@@ -16,7 +16,7 @@ function TimerLabel(props) {
           : props.break}
         :{props.seconds < 10 ? "0" + props.seconds : props.seconds}
       </div>
-      <PlayButton run={props.run}/>
+      <PlayButton/>
       <ResetButton reset={props.reset}/>
     </div>
   );

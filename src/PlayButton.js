@@ -6,7 +6,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 function PlayButton(props) {
     return(
         <div>
-            <button id="start_stop" onClick={props.run}>
+            <button id="start_stop">
                 <FontAwesomeIcon icon={faPlay} />
             </button>
         </div>

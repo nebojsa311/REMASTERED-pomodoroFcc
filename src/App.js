@@ -3,6 +3,7 @@ import "./index.css";
 import BreakLabel from "./Break.js";
 import SessionLabel from "./Session.js";
 import TimerLabel from "./Timer.js";
+import beep from "./beep.wav"
 
 let counterGo = null;
 
@@ -78,6 +79,7 @@ class App extends React.Component {
           break_holder: 0,
           label: 'Break',
         });
+        document.getElementById('beep').play();
       }
       // break in process
     } else if (this.state.break === true && this.state.running === false) {
@@ -101,6 +103,7 @@ class App extends React.Component {
           session_holder: 0,
           label: 'Session time',
         });
+        document.getElementById('beep').play();
       }
     }
   
@@ -116,6 +119,8 @@ class App extends React.Component {
       label: 'Session'
     });
     clearInterval(counterGo);
+    document.getElementById('beep').pause();
+    document.getElementById('beep').currentTime = 0;
   }
 
   componentDidMount() {
@@ -139,6 +144,9 @@ class App extends React.Component {
   render() {
     return (
       <div id="container">
+        <audio controls id='beep'>
+          <source src={beep}></source>
+        </audio>
         <BreakLabel
           break_length={this.state.break_length}
           increment={this.incrementMethod}

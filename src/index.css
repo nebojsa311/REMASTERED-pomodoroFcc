@@ -43,7 +43,7 @@ h1 {
     display: grid;
     text-align: center;
     grid-template-rows: 70% 70%;
-    grid-template-columns:  auto 15% auto;
+    grid-template-columns:  auto 20% auto;
 }
 /* Session label css */
 #session-label {
@@ -159,4 +159,54 @@ h1 {
 
 .fa-play, .fa-arrow-down, .fa-arrow-up, .fa-recycle {
     background-color: white;
+}
+
+@media only screen and (max-width: 1000px) {
+    #container {
+        width: 60vw;
+        height: 75vh;
+        margin-left: auto;
+        margin-right: auto;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        grid-template-columns: 50% 50%;
+        align-items: center;
+        position: relative;
+        top: 15vh;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #container {
+        width: 80vw;
+        height: 90vh;
+        margin-left: auto;
+        margin-right: auto;
+        display: grid;
+        grid-template-rows: auto auto auto;
+        grid-template-columns: 50% 50%;
+        align-items: center;
+        position: relative;
+        top: 15vh;
+    }
+
+    .length-control {
+        grid-template-columns: auto auto auto;
+    }
+
+    #break-length {
+        font-size: 1.3em;
+    }
+
+    #session-length {
+        font-size: 1.2em;
+    }
+
+    #session-label {
+        font-size: 1.2em;
+    }
+
+    #break-label {
+        font-size: 1.2em;
+    }
 }

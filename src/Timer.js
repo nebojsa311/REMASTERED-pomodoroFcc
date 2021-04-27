@@ -16,8 +16,12 @@ function TimerLabel(props) {
           : props.break}
         :{props.seconds < 10 ? "0" + props.seconds : props.seconds}
       </div>
+      <div id='button1'>
       <PlayButton/>
+      </div>
+      <div id='button2'>
       <ResetButton reset={props.reset}/>
+      </div>
     </div>
   );
 }

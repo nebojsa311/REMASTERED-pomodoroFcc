@@ -3,12 +3,12 @@ import "./index.css";
 import BreakLabel from "./Break.js";
 import SessionLabel from "./Session.js";
 import TimerLabel from "./Timer.js";
-import beep from "./beep.wav"
+import beep from "./beep.wav";
 
 let counterGo = null;
 
 class App extends React.Component {
-  constructor(props){ 
+  constructor(props) {
     super(props);
     //states
     this.state = {
@@ -19,7 +19,7 @@ class App extends React.Component {
       seconds: 0,
       break: false,
       running: true,
-      label: 'Session'
+      label: "Session",
     };
     // Methods binding .this
     this.incrementMethod = this.incrementMethod.bind(this);
@@ -59,7 +59,7 @@ class App extends React.Component {
 
   runningMethod(event) {
     // session in process
-      if (this.state.break === false && this.state.running === false) {
+    if (this.state.break === false && this.state.running === false) {
       if (this.state.session_length > 0) {
         if (this.state.seconds === 0) {
           this.setState({
@@ -77,13 +77,13 @@ class App extends React.Component {
           break: true,
           session_length: this.state.session_holder,
           break_holder: 0,
-          label: 'Break',
+          label: "Break",
         });
-        document.getElementById('beep').play();
+        document.getElementById("beep").play();
       }
       // break in process
     } else if (this.state.break === true && this.state.running === false) {
-      this.setState({ label: 'Break time' })
+      this.setState({ label: "Break time" });
       if (this.state.break_length > 0) {
         if (this.state.seconds === 0) {
           this.setState({
@@ -101,12 +101,11 @@ class App extends React.Component {
           break: false,
           break_length: this.state.break_holder,
           session_holder: 0,
-          label: 'Session time',
+          label: "Session time",
         });
-        document.getElementById('beep').play();
+        document.getElementById("beep").play();
       }
     }
-  
   }
 
   resetMethod(event) {
@@ -116,55 +115,58 @@ class App extends React.Component {
       seconds: 0,
       break: false,
       running: true,
-      label: 'Session'
+      label: "Session",
     });
     clearInterval(counterGo);
-    document.getElementById('beep').pause();
-    document.getElementById('beep').currentTime = 0;
+    document.getElementById("beep").pause();
+    document.getElementById("beep").currentTime = 0;
   }
 
   componentDidMount() {
-    document
-      .getElementById("start_stop")
-      .addEventListener("click", () => {
-        if(this.state.running === true) {
-          counterGo = setInterval(this.runningMethod, 1000);
-          this.setState({ running: false });
-          return;
-        } else if(this.state.running === false){
-          clearInterval(counterGo);
-          this.setState({ running: true });
-          return;
-        }
+    document.getElementById("start_stop").addEventListener("click", () => {
+      if (this.state.running === true) {
+        counterGo = setInterval(this.runningMethod, 1000);
+        this.setState({ running: false });
+        return;
+      } else if (this.state.running === false) {
+        clearInterval(counterGo);
+        this.setState({ running: true });
+        return;
       }
-        
-      );
+    });
   }
 
   render() {
     return (
       <div id="container">
-        <audio controls id='beep'>
+        <audio id="beep">
           <source src={beep}></source>
         </audio>
-        <BreakLabel
-          break_length={this.state.break_length}
-          increment={this.incrementMethod}
-          decrement={this.decrementMethod}
-        />
-        <SessionLabel
-          session_length={this.state.session_length}
-          increment={this.incrementMethod}
-          decrement={this.decrementMethod}
-        />
-        <TimerLabel
-          time={this.state.session_length}
-          break={this.state.break_length}
-          seconds={this.state.seconds}
-          switcher={this.state.break}
-          reset={this.resetMethod}
-          label={this.state.label}
-        />
+        <h1>25:5 clock</h1>
+        <div id='sessionDiv'> 
+          <SessionLabel
+            session_length={this.state.session_length}
+            increment={this.incrementMethod}
+            decrement={this.decrementMethod}
+          />
+        </div>
+        <div id='breakDiv'>
+          <BreakLabel
+            break_length={this.state.break_length}
+            increment={this.incrementMethod}
+            decrement={this.decrementMethod}
+          />
+        </div>
+        <div id='timerDiv'>
+          <TimerLabel
+            time={this.state.session_length}
+            break={this.state.break_length}
+            seconds={this.state.seconds}
+            switcher={this.state.break}
+            reset={this.resetMethod}
+            label={this.state.label}
+          />
+        </div>
       </div>
     );
   }

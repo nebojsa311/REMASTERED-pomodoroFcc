@@ -1,3 +1,162 @@
-div {
-    margin-left: 30%;
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#container {
+    width: 40vw;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    position: relative;
+    top: 15vh;
+}
+
+h1 {
+    text-align: center;
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+    text-decoration: underline;
+}
+
+#sessionDiv {
+    grid-row: 2/3;
+    grid-column: 1 / 2;
+}
+
+#breakDiv {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+}
+
+#timerDiv {
+    grid-row: 3 / 4;
+    grid-column: 1 / 3;
+}
+
+.length-control {
+    display: grid;
+    text-align: center;
+    grid-template-rows: 70% 70%;
+    grid-template-columns:  auto 15% auto;
+}
+/* Session label css */
+#session-label {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    align-self: center;
+    font-size: 1.6em;
+}
+
+#session-increment {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    width: min-content;
+    height: min-content;
+    justify-self: end;
+    align-self: center;
+}
+
+#session-length {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-self: center;
+    align-self: center;
+    width: min-content;
+    font-size: 1.6em;
+}
+
+#session-decrement {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    width: min-content;
+    height: min-content;
+    justify-self: start;
+    align-self: center;
+}
+
+/* Break label css */
+#break-label {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    align-self: center;
+    font-size: 1.6em;
+}
+
+#break-increment {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    width: min-content;
+    height: min-content;
+    justify-self: end;
+    align-self: center;
+}
+
+#break-length {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    align-self: center;
+    font-size: 1.6em;
+}
+
+#break-decrement {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    width: min-content;
+    height: min-content;
+    align-self: center;
+    justify-self: start;
+}
+
+/* Timer area css */
+.timer-control {
+    display: grid;
+    grid-column: auto auto;
+    grid-row: auto auto auto;
+    grid-gap: 5px;
+}
+
+#timer-label {
+    grid-row: 1 /2;
+    grid-column: 1 / 3;
+    width: min-content;
+    justify-self: center;
+}
+
+#time-left {
+    grid-row: 2 / 3;
+    grid-column: 1 / 3;
+    width: min-content;
+    justify-self: center;
+}
+
+#button1 {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+    width: min-content;
+    justify-self: end;
+}
+
+#button2 {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+    width: min-content;
+    justify-self: start;
+}
+
+#timer-label {
+    font-size: 1.5em;
+}
+
+#time-left {
+    font-size: 1.5em;
+}
+
+.fa-play, .fa-arrow-down, .fa-arrow-up, .fa-recycle {
+    background-color: white;
 }

@@ -1,13 +1,14 @@
 import React from 'react';
+import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 
 function PlayButton(props) {
     return(
-        <div>
+        <div className='buttons'>
             <button id="start_stop">
-                <FontAwesomeIcon icon={faPlay} />
+                <FontAwesomeIcon icon={faPlay} size='2x'/>
             </button>
         </div>
     )
